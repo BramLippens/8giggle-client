@@ -7,7 +7,7 @@ const PostCard = ({post}) => {
         <div className='capitalize ml-1 pb-4 text-2xl text-white'>
             {post.title}
         </div>
-        <img src={post.image} alt="Post" className="w-full h-80 object-cover object-center" />
+        <img src={post.content} alt="Post" className="w-full h-80 object-cover object-center" />
         <Footer />
     </div>
   );

@@ -1,63 +1,33 @@
 import { useState } from "react";
 import PostCard from "../posts/PostCard";
+import api from "../api/api";
+import { useEffect } from "react";
 
 const Feed = () => {
-    const [posts, setPosts] = useState([
-        {
-            _id: 1,
-            title: "Love For All, Hatred For None.",
-            image: "https://picsum.photos/1080",
-            username: "John Doe",
-            createdAt: "5 minutes ago",
-            likes: 5,
-            comments: 2,
-        },
-        {
-            _id: 2,
-            title: "Love For All, Hatred For None.",
-            image: "https://picsum.photos/1080",
-            username: "John Doe",
-            createdAt: "5 minutes ago",
-            likes: 5,
-            comments: 2,
-        },
-        {
-            _id: 3,
-            title: "Love For All, Hatred For None.",
-            image: "https://picsum.photos/1080",
-            username: "John Doe",
-            createdAt: "5 minutes ago",
-            likes: 5,
-            comments: 2,
-        },
-        {
-            _id: 4,
-            title: "Love For All, Hatred For None.",
-            image: "https://picsum.photos/1080",
-            username: "John Doe",
-            createdAt: "5 minutes ago",
-            likes: 5,
-            comments: 2,
-        },
-        {
-            _id: 5,
-            title: "Love For All, Hatred For None.",
-            image: "https://picsum.photos/1080",
-            username: "John Doe",
-            createdAt: "5 minutes ago",
-            likes: 5,
-            comments: 2,
-        },
-    ]);
+    const [posts, setPosts] = useState([]);
+
+    useEffect(() => {
+        async function fetchData(){
+            const response = await api.get("/posts", {
+                params: {
+                    page: 0,
+                    size: 10,
+                }
+            });
+            console.log(response.data);
+            setPosts(response.data.content);
+        }
+        fetchData();
+    }, []);
     
     return (
         <div className="flex flex-col items-center justify-center min-h-screen py-2">
             {posts.map((post) => (
-                <>
-                    <PostCard key={post._id} post={post} />
+                <div key={post.id}>
+                    <PostCard key={post.id} post={post} />
                     {/* line that seperates each card */}
                     <div className="w-96 h-0.5 bg-[#50545F] rounded-full"></div>
-                </>   
+                </div>   
             ))}
         </div>
     );
