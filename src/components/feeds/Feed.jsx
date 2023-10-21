@@ -1,6 +1,6 @@
 import { useState } from "react";
 import PostCard from "../posts/PostCard";
-import api from "../api/api";
+import api from "../../api/api";
 import { useEffect } from "react";
 
 const Feed = () => {
@@ -21,7 +21,7 @@ const Feed = () => {
     }, []);
     
     return (
-        <div className="flex flex-col items-center justify-center min-h-screen py-2">
+        <div className="flex flex-col items-center justify-start min-h-screen py-2">
             {posts.map((post) => (
                 <div key={post.id}>
                     <PostCard key={post.id} post={post} />

@@ -1,10 +1,24 @@
 import './App.css';
-import Feed from './feeds/Feed';
+import {
+  BrowserRouter,
+  Route,
+  Routes,
+} from "react-router-dom"
+import Home from './pages/Home';
+import Layout from './pages/Layout';
+import NoPage from './pages/NoPage';
+import CreatePost from './pages/CreatePost';
 
 export default function App() {
   return (
-    <div className='bg-gray-900'>
-      <Feed />
-    </div>
-  )
+   <BrowserRouter>
+    <Routes>
+      <Route path='/' element={<Layout />}>
+        <Route index element={<Home />} />
+        <Route path='/create-post' element={<CreatePost />} />
+        <Route path='*' element={<NoPage />} />
+      </Route>
+    </Routes>
+   </BrowserRouter>
+  );
 }
