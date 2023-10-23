@@ -1,11 +1,13 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import api from '../../api/api';
 import { useNavigate } from 'react-router-dom';
+import { UserContext } from "../../contexts/UserContext";
 
 function CreatePostForm() {
     const [title, setTitle] = useState('');
     const [image, setImage] = useState(null);
     const navigate = useNavigate();
+    const {accessToken} = useContext(UserContext);
     
 
     const handleTitleChange = (event) => {
@@ -23,7 +25,7 @@ function CreatePostForm() {
         formData.append("title", title);
         formData.append("file", image);
 
-        await api.post("/posts", formData);
+        await api.post("/posts", formData, {headers: { Authorization: `Bearer ${accessToken}` }});
 
         console.log("Post created");
         navigate("/", {replace: true});
