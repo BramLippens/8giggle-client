@@ -2,6 +2,7 @@ import { useContext,useEffect,useState } from "react";
 import api from "../../api/api";
 import { UserContext } from "../../contexts/UserContext";
 import { useNavigate } from 'react-router-dom';
+import md5 from 'md5';
 
 export default function RegisterAndLoginForm(){
     const [email,setEmail] = useState("");
@@ -12,7 +13,7 @@ export default function RegisterAndLoginForm(){
     const [error,setError] = useState("");
     const navigate = useNavigate();
 
-    const {setUsername:setLoggedInUsername, setAccessToken, setId, accessToken} = useContext(UserContext);
+    const {setUsername:setLoggedInUsername, setAccessToken, setId, accessToken, setImage} = useContext(UserContext);
 
     async function handleSubmit(ev){
         ev.preventDefault();
@@ -23,6 +24,7 @@ export default function RegisterAndLoginForm(){
             setId(data.id);
             setLoggedInUsername(data.username);
             setAccessToken(data.accessToken);
+            setImage(`https://www.gravatar.com/avatar/${md5(data.email)}`);
             setLoading(false);
         }
         catch(err){

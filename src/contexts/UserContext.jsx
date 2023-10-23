@@ -1,5 +1,6 @@
 import { useState,useEffect,createContext } from "react";
 import api from "../api/api";
+import md5 from 'md5';
 
 export const UserContext = createContext();
 
@@ -7,6 +8,7 @@ export function UserContextProvider({children}){
     const [id,setId] = useState(null);
     const [username,setUsername] = useState(null);
     const [accessToken,setAccessToken] = useState(null);
+    const [image,setImage] = useState(null);
     const [loading,setLoading] = useState(true);
 
     useEffect(()=>{
@@ -15,7 +17,7 @@ export function UserContextProvider({children}){
         .then((res)=>{
             setId(res.data.id);
             setUsername(res.data.username);
-            setAccessToken(res.data.accessToken);
+            setImage(`https://www.gravatar.com/avatar/${md5(res.data.email)}`);
             setLoading(false);
         })
         .catch((err)=>{
@@ -25,7 +27,7 @@ export function UserContextProvider({children}){
     },[])
 
     return (
-        <UserContext.Provider value={{id, setId, username, setUsername, accessToken, setAccessToken}}>
+        <UserContext.Provider value={{id, setId, username, setUsername, accessToken, setAccessToken, image, setImage}}>
             {children}
         </UserContext.Provider>
     )
