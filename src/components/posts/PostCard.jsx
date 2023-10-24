@@ -8,7 +8,7 @@ const PostCard = ({post}) => {
             {post.title}
         </div>
         <img src={`data:image/png;base64,${post.image}`} alt="Post" className="w-full h-80 object-cover object-center" />
-        <Footer />
+        <Footer post_id={post.id} />
     </div>
   );
 };

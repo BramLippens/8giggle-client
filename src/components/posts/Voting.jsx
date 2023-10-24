@@ -1,10 +1,15 @@
-const Voting = () => {
+import { useContext } from "react";
+import api from "../../api/api";
+import { UserContext } from "../../contexts/UserContext";
+
+const Voting = ({post_id}) => {
+    const {accessToken} = useContext(UserContext);
     const handleUpvote = () => {
-        console.log('upvote');
+        api.post(`/posts/${post_id}/upvote`, {}, {headers: { Authorization: `Bearer ${accessToken}` }})
     };
 
     const handleDownvote = () => {
-        console.log('downvote');
+        api.post(`/posts/${post_id}/downvote`, {}, {headers: { Authorization: `Bearer ${accessToken}` }})
     };
 
     return (
