@@ -25,7 +25,7 @@ function CreatePostForm() {
         formData.append("title", title);
         formData.append("file", image);
 
-        await api.post("/posts", formData, {headers: { Authorization: `Bearer ${accessToken}` }});
+        await api.post("/posts/create", formData, {headers: { Authorization: `Bearer ${accessToken}` }});
 
         console.log("Post created");
         navigate("/", {replace: true});
